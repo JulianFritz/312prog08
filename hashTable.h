@@ -3,36 +3,30 @@
 
 #include <string>
 #include <iostream>
-
+#include <vector>
 
 using namespace std;
 
 const int MAX_SIZE = 100000;
 
 class HashTable {
-        private:
-                int tableSize;
-                string table[MAX_SIZE];
-        public:
-                HashTable() { //Constructor
-                        tableSize = MAX_SIZE;
-                }
+	private:
+		int tableSize;
+		vector<int> *table;
+	public:
+		HashTable();  //Constructor
 
-                void insertHash(string key, string fileName) {
-                        int idx = hashFunction(key);
-                        table[idx] = fileName;
-                }
+		void insertHash(string key, int fileNameIdx);	//to insert a key into the hashtable
+		
+		void deleteHash(string key);	//Didn't end up using this function
+		
+		int hashFunction(string key);	//returns the hash index of a given key
 
-                void deleteHash(string key);
+		void displayHash();	//prints out the whole hash table
 
-                int hashFunction(string key) {
-                        int result = 0;
-                        for(int i = 0; i < key.length(); i++) {
-                                result = result + (key[i]*key[i]);
-                        }
-cout << result % tableSize << endl;
-                        return result % tableSize; //added up all the ascii values squared
-                }
+		void countCollisions(int ** collCount);	//fills the 2D array with collision counts
+
+		~HashTable(); 	//destructor
 
 };
 
